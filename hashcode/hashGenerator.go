@@ -1,6 +1,8 @@
 package hashcode
 
 import (
+	"crypto/md5"
+	"crypto/sha1"
 	"crypto/sha256"
 	"errors"
 	"hash"
@@ -65,8 +67,14 @@ func (g *HashGenerator) getHashForFile(h hash.Hash, f *os.File) []byte {
 
 //instantiateHashFunction instantiate a Hash generator for a given algorithm.
 func instantiateHashFunction(algorithm Hash) (hash.Hash, error) {
-	if algorithm == SHA256 {
+	switch algorithm {
+	case MD5:
+		return md5.New(), nil
+	case SHA1:
+		return sha1.New(), nil
+	case SHA256:
 		return sha256.New(), nil
+	default:
+		return nil, errors.New("algorithm not supported")
 	}
-	return nil, errors.New("algorithm not supported")
 }
