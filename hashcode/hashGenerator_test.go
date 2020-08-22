@@ -3,6 +3,7 @@ package hashcode
 import (
 	"fmt"
 	"testing"
+	. "crypto"
 )
 
 func TestHashGenerator_GetCheckSumForStringDefault(t *testing.T) {
@@ -37,6 +38,18 @@ func TestHashGenerator_GetCheckSumForStringSHA1(t *testing.T) {
 
 func TestHashGenerator_GetCheckSumForFileSHA1(t *testing.T) {
 	h := NewHashGenerator(SHA1)
+	checkSum, _  := h.GetCheckSumForFile("mytest.txt")
+	fmt.Printf("File checksum %x\n", checkSum)
+}
+
+func TestHashGenerator_GetCheckSumForStringSHA512(t *testing.T) {
+	h := NewHashGenerator(SHA512)
+	checkSum, _  := h.GetCheckSumForString("This is test")
+	fmt.Printf("String checksum %x\n", checkSum)
+}
+
+func TestHashGenerator_GetCheckSumForFileSHA512(t *testing.T) {
+	h := NewHashGenerator(SHA512)
 	checkSum, _  := h.GetCheckSumForFile("mytest.txt")
 	fmt.Printf("File checksum %x\n", checkSum)
 }

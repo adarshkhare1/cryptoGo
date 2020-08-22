@@ -1,9 +1,11 @@
 package hashcode
 
 import (
+	. "crypto"
 	"crypto/md5"
 	"crypto/sha1"
 	"crypto/sha256"
+	"crypto/sha512"
 	"errors"
 	"hash"
 	"io"
@@ -74,6 +76,8 @@ func instantiateHashFunction(algorithm Hash) (hash.Hash, error) {
 		return sha1.New(), nil
 	case SHA256:
 		return sha256.New(), nil
+	case SHA512:
+		return sha512.New(), nil
 	default:
 		return nil, errors.New("algorithm not supported")
 	}
