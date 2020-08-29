@@ -1,9 +1,10 @@
 package hashcode
 
 import (
-	"fmt"
-	"testing"
 	. "crypto"
+	"fmt"
+	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func TestHashGenerator_GetCheckSumForStringDefault(t *testing.T) {
@@ -16,6 +17,12 @@ func TestHashGenerator_GetCheckSumForFileDefault(t *testing.T) {
 	h := NewDefaultHashGenerator()
 	checkSum, _  := h.GetCheckSumForFile("mytest.txt")
 	fmt.Printf("File checksum %x\n", checkSum)
+}
+
+func TestHashGenerator_GetCheckSumForUnkonwnFile(t *testing.T) {
+	h := NewDefaultHashGenerator()
+	_, err  := h.GetCheckSumForFile("NonExistFilet.txt")
+	assert.NotNil(t, err, "error is not nil")
 }
 
 func TestHashGenerator_GetCheckSumForStringMD5(t *testing.T) {

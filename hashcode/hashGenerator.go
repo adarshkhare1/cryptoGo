@@ -42,13 +42,14 @@ func (g *HashGenerator) GetCheckSumForFile(fileName string) ([]byte, error) {
 	if err != nil {
 		log.Fatal(err)
 		return nil, err
-	}
-	defer f.Close()
-	h, err := instantiateHashFunction(g.hash)
-	if err == nil {
-		return g.getHashForFile(h, f), nil
 	} else {
-		return nil, err
+		defer f.Close()
+		h, err := instantiateHashFunction(g.hash)
+		if err == nil {
+			return g.getHashForFile(h, f), nil
+		} else {
+			return nil, err
+		}
 	}
 }
 

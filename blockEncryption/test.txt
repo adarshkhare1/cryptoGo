@@ -1,0 +1,2 @@
+This is a test data file to encrypt.
+Use it for any block cipher encryption testing.
