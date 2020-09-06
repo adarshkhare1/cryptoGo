@@ -2,6 +2,7 @@ package blockEncryption
 
 import (
 	"crypto/rand"
+	. "cryptoGo"
 	"fmt"
 	"testing"
 )
@@ -16,10 +17,10 @@ func TestEncryptFile(t *testing.T) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Printf("%x\n", ciphertext)
+	LogStatement("%x\n", ciphertext)
     plainText, err := Decrypt(ciphertext, key)
 	if err != nil {
-		fmt.Println(err)
+		LogError(err)
 	}
-	fmt.Printf("%s\n", string(plainText))
+	LogStatement("%s\n", string(plainText))
 }
