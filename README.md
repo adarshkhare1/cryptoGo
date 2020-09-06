@@ -1,5 +1,8 @@
 # cryptoGo
+---
+
 Collections of code samples demonstrating various cryptographic algorithms applications in golang.
+
  ---
 # Block Encryption
  - AES - Encrypt File
