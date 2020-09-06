@@ -19,7 +19,7 @@ func TestHashGenerator_GetCheckSumForFileDefault(t *testing.T) {
 	fmt.Printf("File checksum %x\n", checkSum)
 }
 
-func TestHashGenerator_GetCheckSumForUnkonwnFile(t *testing.T) {
+func TestHashGenerator_GetCheckSumForUnknownFile(t *testing.T) {
 	h := NewDefaultHashGenerator()
 	_, err  := h.GetCheckSumForFile("NonExistFilet.txt")
 	assert.NotNil(t, err, "error is not nil")
