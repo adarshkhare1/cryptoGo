@@ -2,7 +2,7 @@ package blockEncryption
 
 import (
 	"crypto/rand"
-	. "cryptoGo"
+	. "cryptoGo/testHelper"
 	"fmt"
 	"testing"
 )

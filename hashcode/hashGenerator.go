@@ -31,7 +31,7 @@ func (g *HashGenerator) GetCheckSumForString(data string) ([]byte, error) {
 	if data == "" {
 		return nil, errors.New("empty message to hash")
 	}
-	h := instantiateHashFunction(g.hash)
+	h := GetHashingFunction(g.hash)()
 	h.Write([]byte(data))
 	return h.Sum(nil), nil
 }
@@ -43,7 +43,7 @@ func (g *HashGenerator) GetCheckSumForFile(fileName string) ([]byte, error) {
 		return nil, err
 	} else {
 		defer f.Close()
-		h := instantiateHashFunction(g.hash)
+		h := GetHashingFunction(g.hash)()
 		if _, err := io.Copy(h, f); err != nil {
 			log.Fatal(err)
 			return nil, err
@@ -52,18 +52,18 @@ func (g *HashGenerator) GetCheckSumForFile(fileName string) ([]byte, error) {
 	}
 }
 
-//instantiateHashFunction instantiate a Hash generator for a given algorithm.
-func instantiateHashFunction(algorithm Hash) hash.Hash {
+//getHashingFunction instantiate a Hash generator for a given algorithm.
+func GetHashingFunction(algorithm Hash) func() hash.Hash {
 	switch algorithm {
 	case MD5:
-		return md5.New()
+		return md5.New
 	case SHA1:
-		return sha1.New()
+		return sha1.New
 	case SHA256:
-		return sha256.New()
+		return sha256.New
 	case SHA512:
-		return sha512.New()
+		return sha512.New
 	default:
-		panic("algorithm not supported")
+		panic("algorithm not supported.")
 	}
 }

@@ -2,7 +2,7 @@ package hashcode
 
 import (
 	. "crypto"
-	. "cryptoGo"
+	. "cryptoGo/testHelper"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )

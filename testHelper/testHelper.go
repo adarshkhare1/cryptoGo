@@ -1,6 +1,11 @@
-package cryptoGo
+package testHelper
 
-import "fmt"
+import (
+	"crypto/rand"
+	"fmt"
+	"testing"
+
+)
 
 const LogEnabled = false
 
@@ -16,4 +21,14 @@ func LogError(errToLog error) (n int, err error){
 		return fmt.Println(errToLog)
 	}
 	return 0, nil
+}
+
+func GenerateTestSecret32(t *testing.T) []byte {
+	key := make([]byte, 32)
+	_, err := rand.Read(key)
+	if err != nil {
+		t.Error("fail to generate key")
+	}
+	LogStatement("Random is %d %x\n", len(key), key)
+	return key
 }
