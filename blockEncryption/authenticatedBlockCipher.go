@@ -8,15 +8,27 @@ import (
 	"io/ioutil"
 )
 
-func EncryptFile(fileName string, key []byte) ([]byte, error){
+type AuthenticatedBlockCipher struct {
+	key []byte
+}
+
+func NewAuthenticatedBlockCipher(secret []byte) *AuthenticatedBlockCipher {
+	return &AuthenticatedBlockCipher{key: secret}
+}
+
+func (ae *AuthenticatedBlockCipher) EncryptFile(fileName string) ([]byte, error){
 	//read the file as cyphertext
 	plainText, err := ioutil.ReadFile(fileName)
 	if err != nil {
 		return nil, err
 	}
 
+	return ae.EncryptMessage(plainText)
+}
+
+func (ae *AuthenticatedBlockCipher) EncryptMessage(message []byte) ([]byte, error) {
 	//create new aes cypher
-	block, err := aes.NewCipher(key)
+	block, err := aes.NewCipher(ae.key)
 	if err != nil {
 		return nil, err
 	}
@@ -28,12 +40,12 @@ func EncryptFile(fileName string, key []byte) ([]byte, error){
 	if _, err = io.ReadFull(rand.Reader, nonce); err != nil {
 		panic(err.Error())
 	}
-	ciphertext := aesgcm.Seal(nonce, nonce, plainText, nil)
+	ciphertext := aesgcm.Seal(nonce, nonce, message, nil)
 	return ciphertext, nil
 }
 
-func Decrypt(cipherText []byte, key []byte) ([]byte, error){
-	block, err := aes.NewCipher(key)
+func (ae *AuthenticatedBlockCipher) Decrypt(cipherText []byte) ([]byte, error){
+	block, err := aes.NewCipher(ae.key)
 	if err != nil {
 		return nil, err
 	}

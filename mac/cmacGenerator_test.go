@@ -1,4 +1,4 @@
-package digitalSignature
+package mac
 
 import (
 	. "cryptoGo/testHelper"
