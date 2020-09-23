@@ -26,3 +26,4 @@ Message Authentication code (MAC), also known as cryptographic checksum or keyed
 Asymmetric Key Cryptography is public key cryptography. It uses a pair of keys, a public key that can be used by anyone to encrypt the message for the key owner. A private key that is only known to the owner and can be used to decrypt the message that is encrypted by the public key.
 ### RSA Keypair
  - [Generate RSA Key pair as byte arrays](/asymmetricKey/rsaKeyPair.go)
+ - [Encrypt / Decrypt a key using RSA key pair](/asymmetricKey/rsaKeyPair.go)
